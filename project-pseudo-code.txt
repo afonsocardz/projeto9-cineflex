@@ -1,0 +1,104 @@
+--App.js
+
+[user, setUser] = useState()
+
+browserRouter
+	<Header/>
+	<Routes>
+		/ element={<Home user setUser/>}
+		filme:id element={<Filme/>}
+		sessoa:id element={<Sessao/>}
+		sucesso element={<Sucesso/>}
+	</Routes>
+
+	if (user.movie !== null)
+	<Footer/>
+browserRouter
+
+--Header.js
+
+<header>
+ <span> Cineflex </span>
+</header>
+
+
+--PageTop.js { type, pageTitle}
+
+<div class=${title || sucessTitle}>
+{selecione o ${pageTitle}}
+</div>
+
+
+--Home.js
+
+GET movies
+
+<PageTop type pageTitle/>
+
+map.movies
+<Link to=movie/${id}
+<div moviePoster>
+	<img src=movie.posterURL/>
+</div>
+
+--Filme.js {}
+
+GET sessions
+
+<PageTop type={title} pageTitle={filme}/>
+
+map.days
+<span> ${session.weekday} - ${session.date} </span>
+
+map.showtimes
+<div class=button> showtime.name </div>
+
+<Footer movieName movieImg/>
+
+--Sessao.js {}
+
+GET seats
+
+<PageTop type={title} pageTitle={assentos}/>
+
+map.seats
+<div class=seat ${free || reserved} onClick={() => addSeat(id)}>
+	<span>seat.name</span>
+</div>
+
+<div class=legenda>
+
+map.seatStatus
+<div class=circle></div>
+<span> seatStatus.text </span>
+
+</div>
+
+<form onSubmit>
+	nome
+	cpf
+	<button></button>
+</form>
+
+<Footer />
+
+--Footer.js {movie}
+
+<footer>
+
+<img/>
+<div class=movienInfo>
+<span>movie.title</span>
+
+if hasWeekday
+<span>${movie.weekday} - ${movie.time}</span>
+
+</footer>
+
+	
+
+
+
+
+
+

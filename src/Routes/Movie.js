@@ -1,10 +1,11 @@
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import MovieSession from "../Components/MovieSession";
 
-export default function Movie({id, title, setUser}){
+export default function Movie({ id, title, setUser }) {
     const [sessions, setSessions] = useState([]);
-    const {movieId} = useParams();
+    const { movieId } = useParams();
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${movieId}/showtimes`);
@@ -14,10 +15,10 @@ export default function Movie({id, title, setUser}){
         });
 
     }, []);
-    
-    return(
+
+    return (
         <div>
-            {sessions.map(day=> <span>{day.weekday}</span>)}
+            {sessions.map(day => <MovieSession session={day}/>)}
         </div>
     );
 }

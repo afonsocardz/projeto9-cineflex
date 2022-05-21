@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Poster from "../Components/Poster";
 
-export default function Home({id, title, setUser}) {
+export default function Home({ user, setUser }) {
 
     const [movies, setMovies] = useState([]);
 
@@ -16,7 +17,11 @@ export default function Home({id, title, setUser}) {
 
     return (
         <div>
-            {movies.map(movie => <img src={movie.posterURL} />)}
+            {movies.map(movie =>
+                <div onClick={()=>setUser({...user, movie:{id:movie.id, title:movie.title, url:movie.posterURL}})}>
+                    <Poster url={movie.posterURL} id={movie.id} name={movie.title} />
+                </div>
+            )}
         </div>
     );
 }

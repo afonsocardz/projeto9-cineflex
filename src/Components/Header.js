@@ -11,6 +11,8 @@ export default function Header() {
             upperCase={true}
             backgroundColor={"#C3CFD9"}
             height={"67px"}
+            place={"top"}
+            position={"fixed"}
         >
             <span>Cineflex</span>
         </FlexContainer>

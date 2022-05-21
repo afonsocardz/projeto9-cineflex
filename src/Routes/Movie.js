@@ -21,9 +21,9 @@ export default function Movie({ user, setUser }) {
     return (
         <>
             <PageTop route="movie" />
-            <div>
+            
                 {sessions.length !== 0 ? sessions.days.map(day => <MovieSession session={day} user={user} setUser={setUser} />) : <></>}
-            </div>
+            
             <Footer url={user.movie.url} title={user.movie.title} />
         </>
 

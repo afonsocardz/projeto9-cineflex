@@ -3,6 +3,7 @@ import axios from "axios";
 import Poster from "../Components/Poster";
 import PageTop from "../Components/PageTop";
 import FlexContainer from "../Components/Styles/FlexContainer";
+import { Link } from "react-router-dom";
 
 export default function Home({ user, setUser }) {
 
@@ -24,7 +25,9 @@ export default function Home({ user, setUser }) {
                 {movies.map(movie =>
 
                     <div onClick={() => setUser({ ...user, movie: { id: movie.id, title: movie.title, url: movie.posterURL } })}>
-                        <Poster url={movie.posterURL} id={movie.id} name={movie.title} />
+                        <Link to={`/filme/${movie.id}`}>
+                        <Poster url={movie.posterURL} name={movie.title} />
+                        </Link>
                     </div>
 
                 )}

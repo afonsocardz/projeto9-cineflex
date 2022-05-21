@@ -34,12 +34,14 @@ export default function App() {
     return (
         <BrowserRouter>
             <Header />
+            <div className="container">
             <Routes>
                 <Route path="/" element={<Home user={user} setUser={setUser} />} />
                 <Route path="/filme/:movieId" element={<Movie user={user} setUser={setUser} />} />
                 <Route path="/sessao/:sessionId" element={<Session user={user} setUser={setUser} />} />
                 <Route path="/sucesso" element={<Success user={user} />} />
             </Routes>
+            </div>
         </BrowserRouter>
     );
 }

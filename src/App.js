@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./Assets/CSS/reset.css";
+import "./Assets/CSS/style.css";
 import Header from "./Components/Header";
 import Home from "./Routes/Home";
 import Movie from "./Routes/Movie";

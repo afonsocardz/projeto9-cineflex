@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Poster from "../Components/Poster";
+import PageTop from "../Components/PageTop";
+import FlexContainer from "../Components/Styles/FlexContainer";
 
 export default function Home({ user, setUser }) {
 
@@ -16,12 +18,17 @@ export default function Home({ user, setUser }) {
     }, []);
 
     return (
-        <div>
-            {movies.map(movie =>
-                <div onClick={()=>setUser({...user, movie:{id:movie.id, title:movie.title, url:movie.posterURL}})}>
-                    <Poster url={movie.posterURL} id={movie.id} name={movie.title} />
-                </div>
-            )}
-        </div>
+        <>
+            <PageTop route={"home"} />
+            <FlexContainer wrap={true} justify={"center"}>
+                {movies.map(movie =>
+
+                    <div onClick={() => setUser({ ...user, movie: { id: movie.id, title: movie.title, url: movie.posterURL } })}>
+                        <Poster url={movie.posterURL} id={movie.id} name={movie.title} />
+                    </div>
+
+                )}
+            </FlexContainer>
+        </>
     );
 }

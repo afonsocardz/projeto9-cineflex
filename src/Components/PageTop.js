@@ -1,22 +1,23 @@
-export default function PageTop({route}){
+import FlexContainer from "./Styles/FlexContainer";
 
-    function validateRoute(route){
+
+export default function PageTop({ route }) {
+
+    function validateRoute(route) {
 
         if (route === "home") return "o filme";
 
         if (route === "movie") return "o horário";
 
         if (route === "session") return "o(s) assentos";
-        
+
     }
 
     const text = validateRoute(route);
 
-
-    
-    return(
-        <div className={route}>
+    return (
+        <FlexContainer fontSize={"24px"} justify={"center"} height={"110px"}>
             <span>{route !== "success" ? `Selecione ${text}` : "Pedido feito com sucesso!"}</span>
-        </div>
+        </FlexContainer>
     );
 }

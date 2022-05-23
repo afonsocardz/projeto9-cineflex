@@ -1,4 +1,5 @@
 import FlexContainer from "./Styles/FlexContainer";
+import styled from "styled-components";
 
 
 export default function PageTop({ route }) {
@@ -17,7 +18,14 @@ export default function PageTop({ route }) {
 
     return (
         <FlexContainer fontSize={"24px"} justify={"center"} height={"110px"}>
-            <span>{route !== "success" ? `Selecione ${text}` : "Pedido feito com sucesso!"}</span>
+            <Title route={route}>{route !== "success" ? `Selecione ${text}` : "Pedido feito com sucesso!"}</Title>
         </FlexContainer>
     );
 }
+
+const Title = styled.span`
+    color: ${props => props.route === "success" ? '#247A6B' : "inherit" };
+    font-weight: ${props => props.route === "success" ? "bold" : "inherit" };
+    text-align: center;
+    width: ${props => props.route === "success" ? "250px" : "auto" };
+`;

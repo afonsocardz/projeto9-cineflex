@@ -16,25 +16,31 @@ export default function Session({ user, setUser }) {
     const navigate = useNavigate();
 
     const defaultColor = {
-        background:"#C3CFD9",
-        border:"#7B8B99"
+        background: "#C3CFD9",
+        border: "#7B8B99"
     };
     const notAvailableColor = {
-        background:"#FBE192",
-        border:"#F7C52B"
+        background: "#FBE192",
+        border: "#F7C52B"
     };
-    const selectedColor ={
-        background:"#8DD7CF",
-        border:"#1AAE9E"
+    const selectedColor = {
+        background: "#8DD7CF",
+        border: "#1AAE9E"
     };
-    
+
+    let color;
+
 
     useEffect(() => {
 
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessionId}/seats`)
         promise.then(res => {
-            setSeats(res.data)
+            const select = res.data.seats.map(seat => {
+                return { ...seat, isSelected: false }
+            })
+            setSeats({...res.data, seats: select})
             console.log(res.data)
+            
         });
 
     }, [sessionId])
@@ -42,13 +48,26 @@ export default function Session({ user, setUser }) {
     function formHandler(e) {
         e.preventDefault();
 
-        setUser({ ...user, name: name, id: userId });
+        const ids = seats.seats.filter(seat => {
+            if (seat.isSelected === true){
+                return seat.name;
+            }
+        })
+
+        const arr = ids.map(id => id.name);
+
+        console.log(arr);
+
+        setUser({ ...user, name: name, id: userId, seats: arr });
 
         const body = {
-            ids: user.seats.map(seat => seat.id),
+            ids: user.seats,
             name: name,
             id: userId,
         }
+
+        console.log(body);
+        console.log(user);
 
         const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", body);
 
@@ -67,17 +86,16 @@ export default function Session({ user, setUser }) {
             .replace(/(-\d{2})\d+?$/, '$1'))
     }
 
-    console.log(seats);
-
-
+    
     return (
         <div>
             <PageTop route={"session"} />
             <Container>
                 <SeatContainer>
                     {seats.length !== 0 ? seats.seats.map((seat, index) => {
-                        const selected = user.seats.some(userSeat => seat.id === userSeat.id);
-                        return <Seat seat={seat} key={index} selected={selected} user={user} setUser={setUser} />
+                        color = seat.isAvailable ? defaultColor : notAvailableColor;
+                        if (seat.isSelected) color = selectedColor;
+                        return <Seat seat={seat} seats={seats} setSeats={setSeats} color={color} index={index} />
                     }) : <></>}
                 </SeatContainer>
 
@@ -165,8 +183,8 @@ const SeatGuide = styled.div`
     justify-content: center;
     width: 26px;
     height: 26px;
-    background-color: ${props => props.colorStatus.background } ;
-    border: 1px solid ${props => props.colorStatus.border };
+    background-color: ${props => props.colorStatus.background} ;
+    border: 1px solid ${props => props.colorStatus.border};
     border-radius: 12px;
     font-size: 11px;
 `;

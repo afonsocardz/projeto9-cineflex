@@ -38,7 +38,7 @@ export default function Success({ user, setUser }) {
             </ColumnContainer>
             <ColumnContainer margin={"16px 0"}>
                 <Title>Ingressos</Title>
-                {user.seats.map(seat => <Span>Assento {seat.name}</Span>)}
+                {user.seats.map(seat => <Span>Assento {seat}</Span>)}
             </ColumnContainer>
             <ColumnContainer margin={"16px 0"}>
                 <Title>Comprador</Title>

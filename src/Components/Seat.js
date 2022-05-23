@@ -1,26 +1,19 @@
 import styled from "styled-components";
 
-export default function Seat({ seat, selected, user, setUser }) {
+export default function Seat({ seat, seats, setSeats, color, index}) {
 
-    const { seats: userSeats } = user;
 
-    const defaultColor = "#C3CFD9";
-    const notAvailableColor = "#FBE192";
-    const selectedColor = "#8DD7CF";
+    //let color = seat.isAvailable === true ? defaultColor : notAvailableColor;
 
-    let color = seat.isAvailable === true ? defaultColor : notAvailableColor;
-
-    if (selected) color = selectedColor;
-    
-    function addSeat(id) {
-        const check = userSeats.some(userSeat => id === userSeat.id);
-        check ? (userSeats.pop(seat)) : userSeats.push(seat);
-        setUser(
-            {
-                ...user,
-                seats: [...userSeats]
+    //if (selected) color = selectedColor;    
+    function addSeat(id, isSelect) {
+        const temp = (seats.seats.map((seat, index) => {
+            if(index === id){
+                return {...seat, isSelected: !isSelect};
             }
-        );
+            return {...seat};      
+        }))
+        setSeats({...seats, seats: temp})
     }
 
     function handleUnavailable(){
@@ -28,7 +21,7 @@ export default function Seat({ seat, selected, user, setUser }) {
     }
 
     return (
-        <SeatContainer colorStatus={color} onClick={seat.isAvailable ? () => addSeat(seat.id) : handleUnavailable }>
+        <SeatContainer colorStatus={color} onClick={seat.isAvailable ? () => addSeat(index, seat.isSelected ) : handleUnavailable }>
             <span>{seat.name}</span>
         </SeatContainer>
     );
@@ -40,8 +33,8 @@ const SeatContainer = styled.div`
     justify-content: center;
     width: 26px;
     height: 26px;
-    background-color: ${props => props.colorStatus } ;
-    border: 1px solid #808F9D;
+    background-color: ${props => props.colorStatus.background } ;
+    border: 1px solid ${props => props.colorStatus.border };
     border-radius: 12px;
     font-size: 11px;
     margin: 0 3.5px 19px 3.5px;

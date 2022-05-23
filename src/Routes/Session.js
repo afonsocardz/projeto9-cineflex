@@ -15,12 +15,26 @@ export default function Session({ user, setUser }) {
     const { sessionId } = useParams();
     const navigate = useNavigate();
 
+    const defaultColor = {
+        background:"#C3CFD9",
+        border:"#7B8B99"
+    };
+    const notAvailableColor = {
+        background:"#FBE192",
+        border:"#F7C52B"
+    };
+    const selectedColor ={
+        background:"#8DD7CF",
+        border:"#1AAE9E"
+    };
+    
+
     useEffect(() => {
 
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessionId}/seats`)
         promise.then(res => {
-            console.log(res.data)
             setSeats(res.data)
+            console.log(res.data)
         });
 
     }, [sessionId])
@@ -55,6 +69,7 @@ export default function Session({ user, setUser }) {
 
     console.log(seats);
 
+
     return (
         <div>
             <PageTop route={"session"} />
@@ -65,6 +80,28 @@ export default function Session({ user, setUser }) {
                         return <Seat seat={seat} key={index} selected={selected} user={user} setUser={setUser} />
                     }) : <></>}
                 </SeatContainer>
+
+                <FlexContainer justify={"space-around"}>
+                    <ColumnContainer align={"center"}>
+                        <SeatGuide colorStatus={selectedColor}></SeatGuide>
+                        <FlexContainer justify={"center"} fontSize={"13px"}>
+                            Selecionado
+                        </FlexContainer>
+                    </ColumnContainer>
+                    <ColumnContainer align={"center"}>
+                        <SeatGuide colorStatus={defaultColor}></SeatGuide>
+                        <FlexContainer justify={"center"} fontSize={"13px"}>
+                            Disponível
+                        </FlexContainer>
+                    </ColumnContainer>
+                    <ColumnContainer align={"center"}>
+                        <SeatGuide colorStatus={notAvailableColor}></SeatGuide>
+                        <FlexContainer justify={"center"} fontSize={"13px"}>
+                            Indisponível
+                        </FlexContainer>
+                    </ColumnContainer>
+                </FlexContainer>
+
                 <Form onSubmit={formHandler}>
                     <ColumnContainer>
                         <label>Nome do comprador:</label>
@@ -86,6 +123,7 @@ export default function Session({ user, setUser }) {
 
 const Form = styled.form`
     width: 100%;
+    margin-top: 45px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -119,4 +157,16 @@ const Button = styled.button`
     height: 42px;
     margin-top: 57px;
     margin-bottom: 30px;
+`;
+
+const SeatGuide = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background-color: ${props => props.colorStatus.background } ;
+    border: 1px solid ${props => props.colorStatus.border };
+    border-radius: 12px;
+    font-size: 11px;
 `;

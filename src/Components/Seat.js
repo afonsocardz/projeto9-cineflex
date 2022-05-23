@@ -12,8 +12,8 @@ export default function Seat({ seat, selected, user, setUser }) {
 
     if (selected) color = selectedColor;
     
-    function addSeat() {
-        const check = userSeats.some(userSeat => seat.id === userSeat.id);
+    function addSeat(id) {
+        const check = userSeats.some(userSeat => id === userSeat.id);
         check ? (userSeats.pop(seat)) : userSeats.push(seat);
         setUser(
             {
@@ -23,8 +23,12 @@ export default function Seat({ seat, selected, user, setUser }) {
         );
     }
 
+    function handleUnavailable(){
+        alert("Esse assento não está disponível")
+    }
+
     return (
-        <SeatContainer colorStatus={color} onClick={seat.isAvailable ? () => addSeat() : null}>
+        <SeatContainer colorStatus={color} onClick={seat.isAvailable ? () => addSeat(seat.id) : handleUnavailable }>
             <span>{seat.name}</span>
         </SeatContainer>
     );
@@ -41,6 +45,5 @@ const SeatContainer = styled.div`
     border-radius: 12px;
     font-size: 11px;
     margin: 0 3.5px 19px 3.5px;
-    pointer-events: ${props => props.colorStatus === "#FBE192" ? "none" : "initial"};
     cursor: pointer;
 `;

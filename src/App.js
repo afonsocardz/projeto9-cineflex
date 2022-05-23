@@ -39,7 +39,7 @@ export default function App() {
                 <Route path="/" element={<Home user={user} setUser={setUser} />} />
                 <Route path="/filme/:movieId" element={<Movie user={user} setUser={setUser} />} />
                 <Route path="/sessao/:sessionId" element={<Session user={user} setUser={setUser} />} />
-                <Route path="/sucesso" element={<Success user={user} />} />
+                <Route path="/sucesso" element={<Success user={user} setUser={setUser} />} />
             </Routes>
             </div>
         </BrowserRouter>

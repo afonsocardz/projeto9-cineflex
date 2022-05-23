@@ -13,6 +13,7 @@ export default function Movie({ user, setUser }) {
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${movieId}/showtimes`);
         promise.then(response => {
+            console.log(response.data)
             setSessions(response.data)
         });
 
@@ -21,10 +22,10 @@ export default function Movie({ user, setUser }) {
     return (
         <>
             <PageTop route="movie" />
-            
-                {sessions.length !== 0 ? sessions.days.map(day => <MovieSession session={day} user={user} setUser={setUser} />) : <></>}
-            
-            <Footer url={user.movie.url} title={user.movie.title} />
+
+            {sessions.length !== 0 ? sessions.days.map(day => <MovieSession session={day} user={user} setUser={setUser} />) : <></>}
+
+            {sessions.length !== 0 ? <Footer url={sessions.posterURL} title={sessions.title} /> : <></>}
         </>
 
     );

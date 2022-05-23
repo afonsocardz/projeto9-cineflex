@@ -19,8 +19,8 @@ export default function Session({ user, setUser }) {
 
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessionId}/seats`)
         promise.then(res => {
-            console.log(res.data.seats)
-            setSeats(res.data.seats)
+            console.log(res.data)
+            setSeats(res.data)
         });
 
     }, [sessionId])
@@ -60,7 +60,7 @@ export default function Session({ user, setUser }) {
             <PageTop route={"session"} />
             <Container>
                 <SeatContainer>
-                    {seats.length !== 0 ? seats.map((seat, index) => {
+                    {seats.length !== 0 ? seats.seats.map((seat, index) => {
                         const selected = user.seats.some(userSeat => seat.id === userSeat.id);
                         return <Seat seat={seat} key={index} selected={selected} user={user} setUser={setUser} />
                     }) : <></>}
@@ -79,7 +79,7 @@ export default function Session({ user, setUser }) {
                     </FlexContainer>
                 </Form >
             </Container>
-            <Footer url={user.movie.url} title={user.movie.title} weekday={user.session.weekday} time={user.session.time} />
+            {seats.length !== 0 ? <Footer url={seats.movie.posterURL} title={seats.movie.title} weekday={seats.day.weekday} time={seats.name} /> : <></>}
         </div >
     );
 }
@@ -117,4 +117,6 @@ const Input = styled.input`
 const Button = styled.button`
     width: 225px;
     height: 42px;
+    margin-top: 57px;
+    margin-bottom: 30px;
 `;

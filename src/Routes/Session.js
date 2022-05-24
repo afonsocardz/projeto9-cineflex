@@ -56,12 +56,12 @@ export default function Session({ user, setUser }) {
 
         const arr = ids.map(id => id.name);
 
-        console.log(arr);
+        console.log(ids);
 
         setUser({ ...user, name: name, id: userId, seats: arr });
 
         const body = {
-            ids: user.seats,
+            ids: ids.map(id => id.id ),
             name: name,
             id: userId,
         }
